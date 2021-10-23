@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react'
 import Typography from "@mui/material/Typography"
 import Grid from "@mui/material/Grid"
 import { makeStyles } from "@material-ui/core/styles";
+import { AppBar } from '@mui/material';
 
 const useStyles = makeStyles(theme => ({
-    text: {
-        fontWeight: "bold",
-        textShadow: "1px 1px #000000"
-    }
+    // text: {
+    //     fontWeight: "bold",
+    //     textShadow: "1px 1px #000000"
+    // },
+    // appBar: {
+    //     background: "#A0522D"
+    // }
 }));
 
 
@@ -24,9 +28,10 @@ function PlayerInfo(props) {
     }, [props.player] )
 
     return (
+
         <div className="PlayerInfo">
 
-            <Grid item container padding={2} justifyContent="center">
+            <Grid item container paddingTop={2} paddingBottom={2} justifyContent="center">
                 <Grid item>
                     <Typography variant="h3" className={classes.text}>
                         {player.name} the {player.characterClass}
@@ -68,6 +73,8 @@ function PlayerInfo(props) {
                 </Grid>
 
             </Grid>
+
+           
 
         </div>
     )

@@ -21,9 +21,9 @@ export default function Header(props) {
 
     return (
         <div>
-            <AppBar position="static" className={classes.appBar} position="static">
+            <AppBar position="static" className={classes.appBar}>
                 <Box padding={1} >
-                    <Grid container spacing={4} className={classes.grid}>
+                    <Grid container spacing={2} className={classes.grid}>
                         <Grid item xs>
                             <Typography variant="h3" >
                                 Knights of the Fallen
