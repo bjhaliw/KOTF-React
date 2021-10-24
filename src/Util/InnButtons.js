@@ -12,13 +12,13 @@ Prices for the rooms are as follows:
 
 Luxury Room (50 Gold): Feel well-rested! You will receive a 25% boost to your health and mana.
 Regular Room (20 Gold): A cozy room for you to relax. Fully restore your health and mana.
-Cheap Room (10 Gold): Not much in the way of comfort. Regain only 25% of your max health and mana.
-        `
+Cheap Room (10 Gold): Not much in the way of comfort. Regain only 25% of your max health and mana.`
 
-        document.getElementById("mainTextArea").value += welcomeText
+        document.getElementById("mainTextArea").value += welcomeText // Add the initial dialog
+        document.getElementById("mainTextArea").scrollTop = document.getElementById("mainTextArea").scrollHeight // Scroll the textarea to the bottom
     }, [])
 
-    const { player, setPlayer, returnToTown } = props
+    const { player, setPlayer, returnToTown, setTownOpen } = props
     // The player selects the Luxury Room
     const handleLuxuryRoom = () => {
         if (player.money >= 50) {
@@ -29,6 +29,9 @@ Cheap Room (10 Gold): Not much in the way of comfort. Regain only 25% of your ma
             newPlayerObject.mana = newMana
             newPlayerObject.money = newPlayerObject.money - 50
             setPlayer(newPlayerObject)
+
+            document.getElementById("mainTextArea").value += "\n\nYou wake up the next morning feeling better than ever, and have a slight pep in your step now"
+            document.getElementById("mainTextArea").scrollTop = document.getElementById("mainTextArea").scrollHeight // Scroll the textarea to the bottom
         }
     }
 
@@ -42,7 +45,7 @@ Cheap Room (10 Gold): Not much in the way of comfort. Regain only 25% of your ma
             if (newPlayerObject.health < newPlayerObject.maxHealth) {
                 newPlayerObject.health = newPlayerObject.maxHealth
             }
-            
+
             // Make sure we don't ruin our boost
             if (newPlayerObject.mana < newPlayerObject.maxMana) {
                 newPlayerObject.mana = newPlayerObject.maxMana
@@ -50,6 +53,9 @@ Cheap Room (10 Gold): Not much in the way of comfort. Regain only 25% of your ma
 
             newPlayerObject.money = newPlayerObject.money - 20
             setPlayer(newPlayerObject)
+
+            document.getElementById("mainTextArea").value += "\n\nYou rest for the night and wake up feeling fully rejuvinated"
+            document.getElementById("mainTextArea").scrollTop = document.getElementById("mainTextArea").scrollHeight // Scroll the textarea to the bottom
         }
     }
 
@@ -80,27 +86,32 @@ Cheap Room (10 Gold): Not much in the way of comfort. Regain only 25% of your ma
             // Remove money
             newPlayerObject.money = newPlayerObject.money - 10
             setPlayer(newPlayerObject)
+
+            document.getElementById("mainTextArea").value += "\n\nYou toss and turn the entire night and barely get any sleep."
+            document.getElementById("mainTextArea").scrollTop = document.getElementById("mainTextArea").scrollHeight // Scroll the textarea to the bottom
         }
     }
 
     const handleBackToTown = () => {
+        document.getElementById("mainTextArea").value += "\n\nYou walk back to the middle of the town."
+        document.getElementById("mainTextArea").scrollTop = document.getElementById("mainTextArea").scrollHeight // Scroll the textarea to the bottom
+
+        setTownOpen(true)
         returnToTown()
     }
 
 
     return (
+        <>
 
-        <Box display="flex" gap={5} alignItems="center" justifyContent="center" alignContent="center">
+                <Box display="flex" gap={5} alignItems="center" justifyContent="center" alignContent="center">
+                    <Button variant="contained" onClick={handleLuxuryRoom} disabled={player.money < 50} color="primary">Luxury room</Button>
+                    <Button variant="contained" onClick={handleRegularRoom} disabled={player.money < 20} color="primary">Regular Room</Button>
+                    <Button variant="contained" onClick={handleCheapRoom} disabled={player.money < 10} color="primary">Cheap Room</Button>
+                    <Button variant="contained" onClick={handleBackToTown} color="primary">Back To Town</Button>
+                </Box>
 
-            <Button variant="contained" onClick={handleLuxuryRoom} disabled={player.money < 50} color="primary">Luxury room</Button>
-
-            <Button variant="contained" onClick={handleRegularRoom} disabled={player.money < 20} color="primary">Regular Room</Button>
-
-            <Button variant="contained" onClick={handleCheapRoom} disabled={player.money < 10} color="primary">Cheap Room</Button>
-
-            <Button variant="contained" onClick={handleBackToTown} color="primary">Back To Town</Button>
-
-        </Box>
+        </>
     )
 }
 

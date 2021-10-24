@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Paper, Typography, TextareaAutosize, Button } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import StoreDialog from '../Util/StoreDialog';
 import { Box, Divider } from '@mui/material';
+import TownButtons from '../Util/TownButtons'
 import InnButtons from '../Util/InnButtons';
+import OutsideButtons from '../Util/OutsideButtons'
 
 const useStyles = makeStyles(theme => ({
     textArea: {
@@ -28,8 +30,10 @@ function View(props) {
 
     const classes = useStyles()
 
+    const [inTown, setInTown] = useState(true)
     const [innOpen, setInnOpen] = useState(false)
     const [storeOpen, setStoreOpen] = useState(false)
+    const [leaveTown, setLeaveTown] = useState(false)
 
     const textAreaPrompt = "You're standing in the middle of the town. The sun shines brightly on you as people go about their day around you."
 
@@ -41,6 +45,14 @@ function View(props) {
         setStoreOpen(false)
     }
 
+    const handleCloseTown = () => {
+        setInTown(false)
+    }
+
+    useEffect(() => {
+        console.log(leaveTown)
+    }, [leaveTown])
+
     return (
         <>
 
@@ -50,6 +62,7 @@ function View(props) {
                     <Typography variant="h5" component="center" style={{ fontWeight: "bold" }}>
                         Player Stats
                     </Typography>
+                    
                     <Divider variant="middle" />
 
                     <Box display="inline-grid" gap={5} className={classes.grid}>
@@ -83,11 +96,9 @@ function View(props) {
                 <Box display="inline-grid" gap={5} alignContent="center" alignItems="center" justifyContent="center">
                     <TextareaAutosize id="mainTextArea" className={classes.textArea} defaultValue={textAreaPrompt} onKeyDown={e => e.preventDefault()} placeholder='' minRows={50} />
 
-                    {innOpen ? <InnButtons player={props.player} setPlayer={props.setPlayer} returnToTown={handleCloseInn} /> : (<Box display="flex" gap={10} alignContent="center" alignItems="center" justifyContent="center">
-                        <Button variant="contained" color="primary" className={classes.buttons} onClick={() => setInnOpen(true)}>Inn</Button>
-                        <Button variant="contained" color="primary" className={classes.buttons} onClick={() => setStoreOpen(true)}>Store</Button>
-                        <Button variant="contained" color="primary" className={classes.buttons}>Leave Town</Button>
-                    </Box>)}
+                    {inTown ? <TownButtons setInnOpen={setInnOpen} setStoreOpen={setStoreOpen}  setTownOpen={handleCloseTown} setLeaveTown={setLeaveTown}/> : null}
+                    {innOpen ? <InnButtons player={props.player} setPlayer={props.setPlayer} returnToTown={handleCloseInn} open={innOpen} setTownOpen={setInTown} /> : null}
+                    {leaveTown ? <OutsideButtons player={props.player} setPlayer={props.setPlayer} returnToTown={() => setLeaveTown(false)} setTownOpen={setInTown} /> : null}
 
                 </Box>
 
@@ -125,7 +136,6 @@ function View(props) {
                 </Paper>
             </Box>
 
-            {/* <InnDialog open={innOpen} onClose={handleCloseInn} player={props.player} setPlayer={props.setPlayer} /> */}
             <StoreDialog open={storeOpen} onClose={handleCloseStore} player={props.player} setPlayer={props.setPlayer} />
         </>
     )
