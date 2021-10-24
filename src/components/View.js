@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Paper, Typography, TextareaAutosize, Button } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
-import InnDialog from '../Util/InnDialog';
 import StoreDialog from '../Util/StoreDialog';
 import { Box, Divider } from '@mui/material';
+import InnButtons from '../Util/InnButtons';
 
 const useStyles = makeStyles(theme => ({
     textArea: {
@@ -31,6 +31,7 @@ function View(props) {
     const [innOpen, setInnOpen] = useState(false)
     const [storeOpen, setStoreOpen] = useState(false)
 
+    const textAreaPrompt = "You're standing in the middle of the town. The sun shines brightly on you as people go about their day around you."
 
     const handleCloseInn = () => {
         setInnOpen(false)
@@ -40,23 +41,19 @@ function View(props) {
         setStoreOpen(false)
     }
 
-    useEffect(() => {
-        console.log(innOpen)
-    }, [innOpen])
-
     return (
         <>
 
             <Box display="flex" alignContent="center" alignItems="center" justifyContent="center" gap={15} padding={2}>
                 <Paper elevation={2}>
 
-                    <Typography variant="h6" component="center">
+                    <Typography variant="h5" component="center" style={{ fontWeight: "bold" }}>
                         Player Stats
                     </Typography>
                     <Divider variant="middle" />
 
                     <Box display="inline-grid" gap={5} className={classes.grid}>
-                        <Typography variant="h6" component="center">
+                        <Typography variant="h6" component="center" >
                             Strength: {props.player.strength}
                         </Typography>
 
@@ -84,21 +81,21 @@ function View(props) {
                 </Paper>
 
                 <Box display="inline-grid" gap={5} alignContent="center" alignItems="center" justifyContent="center">
-                    <TextareaAutosize className={classes.textArea} defaultValue="Welcome, player" onKeyDown={e => e.preventDefault()} />
+                    <TextareaAutosize id="mainTextArea" className={classes.textArea} defaultValue={textAreaPrompt} onKeyDown={e => e.preventDefault()} placeholder='' minRows={50} />
 
-                    <Box display="flex" gap={10} alignContent="center" alignItems="center" justifyContent="center">
+                    {innOpen ? <InnButtons player={props.player} setPlayer={props.setPlayer} returnToTown={handleCloseInn} /> : (<Box display="flex" gap={10} alignContent="center" alignItems="center" justifyContent="center">
                         <Button variant="contained" color="primary" className={classes.buttons} onClick={() => setInnOpen(true)}>Inn</Button>
                         <Button variant="contained" color="primary" className={classes.buttons} onClick={() => setStoreOpen(true)}>Store</Button>
                         <Button variant="contained" color="primary" className={classes.buttons}>Leave Town</Button>
+                    </Box>)}
 
-                    </Box>
                 </Box>
 
                 <Paper elevation={2}>
-                    <Typography variant="h6" component="center">
+                    <Typography variant="h5" component="center" style={{ fontWeight: "bold" }}>
                         Player Inventory
                     </Typography>
-                    <Divider variant="middle"/>
+                    <Divider variant="middle" />
 
                     <Box display="inline-grid" gap={5} width={300} className={classes.grid}>
                         <Typography variant="h6" component="center">
@@ -128,7 +125,7 @@ function View(props) {
                 </Paper>
             </Box>
 
-            <InnDialog open={innOpen} onClose={handleCloseInn} player={props.player} setPlayer={props.setPlayer} />
+            {/* <InnDialog open={innOpen} onClose={handleCloseInn} player={props.player} setPlayer={props.setPlayer} /> */}
             <StoreDialog open={storeOpen} onClose={handleCloseStore} player={props.player} setPlayer={props.setPlayer} />
         </>
     )

@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { Typography, Grid, TextField, Button } from '@material-ui/core'
+import React, { useState } from 'react'
+import { Typography, TextField, Button } from '@material-ui/core'
 import Autocomplete from '@mui/material/Autocomplete'
+import Box from "@mui/material/Box"
 
 function PlayerCreator(props) {
 
@@ -31,122 +32,106 @@ function PlayerCreator(props) {
 
     return (
         <>
-            <Grid container direction="row" spacing={5} >
-                <Grid container item spacing={3} justifyContent="center" alignItems="center">
 
-                    <Grid item>
-                        <TextField id="name" name="name" label="Player Name" onChange={props.handleNameChange} />
-                    </Grid>
+            <Box display="grid" justifyContent="center" alignItems="flex-start" gap={5} padding={2}>
 
-                    <Grid item>
-                        <Autocomplete
-                            disablePortal
-                            name="characterClass"
-                            id="characterClass"
-                            options={comboChoices}
-                            sx={{ width: 200 }}
-                            onChange={props.handleCharacterClassChange}
-                            renderInput={(params) => <TextField {...params} label="Character Class" />}
-                        />
-                    </Grid>
-                </Grid>
+                <Typography component="center" variant="h4">Character Creation</Typography>
 
-                <Grid container item spacing={3} justifyContent="center" alignItems="center">
+                <Box display="flex" alignItems="flex-end" justifyContent="center" gap={5}>
+                    <TextField id="name" name="name" label="Player Name" onChange={props.handleNameChange} />
 
-                    <Grid item>
-                        <TextField
-                            id="strength"
-                            name="strength"
-                            type="number"
-                            inputProps={{ min: 0, style: { textAlign: 'center' } }}
-                            onChange={handleValueChange}
-                            defaultValue={10}
-                            onKeyDown={e => e.preventDefault()}
-                            label="Strength" />
-                    </Grid>
+                    <Autocomplete
+                        disablePortal
+                        name="characterClass"
+                        id="characterClass"
+                        options={comboChoices}
+                        sx={{ width: 200 }}
+                        onChange={props.handleCharacterClassChange}
+                        renderInput={(params) => <TextField {...params} label="Character Class" />}
+                    />
+                </Box>
 
-                    <Grid item>
-                        <TextField
-                            id="dexterity"
-                            name="dexterity"
-                            type="number"
-                            inputProps={{ min: 0, style: { textAlign: 'center' } }}
-                            onChange={handleValueChange}
-                            defaultValue={10}
-                            onKeyDown={e => e.preventDefault()} label="Dexterity" />
-                    </Grid>
+                <Box display="flex" gap={5}>
+                    <TextField
+                        id="strength"
+                        name="strength"
+                        type="number"
+                        inputProps={{ min: 0, style: { textAlign: 'center' } }}
+                        onChange={handleValueChange}
+                        defaultValue={10}
+                        onKeyDown={e => e.preventDefault()}
+                        label="Strength" />
 
+                    <TextField
+                        id="dexterity"
+                        name="dexterity"
+                        type="number"
+                        inputProps={{ min: 0, style: { textAlign: 'center' } }}
+                        onChange={handleValueChange}
+                        defaultValue={10}
+                        onKeyDown={e => e.preventDefault()} label="Dexterity" />
 
-                    <Grid item>
-                        <TextField
-                            id="intelligence"
-                            name="intelligence"
-                            type="number"
-                            inputProps={{ min: 0, style: { textAlign: 'center' } }}
-                            onChange={handleValueChange}
-                            defaultValue={10}
-                            onKeyDown={e => e.preventDefault()} label="Intelligence" />
-                    </Grid>
+                    <TextField
+                        id="intelligence"
+                        name="intelligence"
+                        type="number"
+                        inputProps={{ min: 0, style: { textAlign: 'center' } }}
+                        onChange={handleValueChange}
+                        defaultValue={10}
+                        onKeyDown={e => e.preventDefault()} label="Intelligence" />
 
-                </Grid>
+                </Box>
 
-                <Grid item container spacing={3} justifyContent="center" alignItems="center">
+                <Box display="flex" gap={5}>
+                    <TextField
+                        id="charisma"
+                        name="charisma"
+                        type="number"
+                        inputProps={{ min: 0, style: { textAlign: 'center' } }}
+                        onChange={handleValueChange}
+                        defaultValue={10}
+                        onKeyDown={e => e.preventDefault()} label="Charisma" />
+                    <TextField
+                        id="constitution"
+                        name="constitution"
+                        type="number"
+                        inputProps={{ min: 0, style: { textAlign: 'center' } }}
+                        onChange={handleValueChange}
+                        defaultValue={10}
+                        onKeyDown={e => e.preventDefault()}
+                        label="Constitution" />
 
-                    <Grid item>
-                        <TextField
-                            id="charisma"
-                            name="charisma"
-                            type="number"
-                            inputProps={{ min: 0, style: { textAlign: 'center' } }}
-                            onChange={handleValueChange}
-                            defaultValue={10}
-                            onKeyDown={e => e.preventDefault()} label="Charisma" />
-                    </Grid>
+                    <TextField
+                        id="wisdom"
+                        name="wisdom"
+                        type="number"
+                        inputProps={{ min: 0, style: { textAlign: 'center' } }}
+                        onChange={handleValueChange}
+                        defaultValue={10}
+                        onKeyDown={e => e.preventDefault()}
+                        label="Wisdom" />
 
-                    <Grid item>
-                        <TextField
-                            id="constitution"
-                            name="constitution"
-                            type="number"
-                            inputProps={{ min: 0, style: { textAlign: 'center' } }}
-                            onChange={handleValueChange}
-                            defaultValue={10}
-                            onKeyDown={e => e.preventDefault()}
-                            label="Constitution" />
-                    </Grid>
+                </Box>
 
-                    <Grid item>
-                        <TextField
-                            id="wisdom"
-                            name="wisdom"
-                            type="number"
-                            inputProps={{ min: 0, style: { textAlign: 'center' } }}
-                            onChange={handleValueChange}
-                            defaultValue={10}
-                            onKeyDown={e => e.preventDefault()}
-                            label="Wisdom" />
-                    </Grid>
-                </Grid>
-
-                <Grid item container direction="column" justifyContent="center" alignItems="center" spacing={3}>
-                    <Grid item>
-                        <TextField
-                            id="remainingPoints"
-                            name="remainingPoints"
-                            inputProps={{ min: 0, style: { textAlign: 'center' } }}
-                            value={remainingPoints}
-                            onKeyDown={e => e.preventDefault()}
-                            label="Remaining Points" />
-                    </Grid>
+                <Box display="flex" gap={5} justifyContent="center">
+                    <TextField
+                        id="remainingPoints"
+                        name="remainingPoints"
+                        inputProps={{ min: 0, style: { textAlign: 'center' } }}
+                        value={remainingPoints}
+                        onKeyDown={e => e.preventDefault()}
+                        label="Remaining Points" />
 
 
-                    <Grid item>
-                        <Button name="createCharacter" id="createCharacter" variant="contained" color="secondary" onClick={props.createCharacter}>Create Character</Button>
-                    </Grid>
-                </Grid>
+                </Box>
+                <Box display="flex" gap={5} justifyContent="center">
+                    <Button name="createCharacter" id="createCharacter" variant="contained" color="secondary" onClick={props.createCharacter}>Create Character</Button>
+                </Box>
+
+            </Box>
 
 
-            </Grid>
+
         </>
     )
 }

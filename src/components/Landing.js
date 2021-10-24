@@ -4,7 +4,6 @@ import PlayerInfo from './PlayerInfo';
 import View from './View'
 import PlayerCreator from './PlayerCreator';
 import { Divider } from '@material-ui/core';
-import { Paper } from '@mui/material';
 
 
 function Landing() {
