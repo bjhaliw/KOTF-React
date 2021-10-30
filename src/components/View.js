@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Paper, Typography, TextareaAutosize, Button } from '@material-ui/core';
+import { Paper, Typography, TextareaAutosize } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import StoreDialog from '../Util/StoreDialog';
 import { Box, Divider } from '@mui/material';
 import TownButtons from '../Util/TownButtons'
 import InnButtons from '../Util/InnButtons';
 import OutsideButtons from '../Util/OutsideButtons'
+import BattleButtons from '../Util/BattleButtons'
 
 const useStyles = makeStyles(theme => ({
     textArea: {
@@ -34,6 +35,7 @@ function View(props) {
     const [innOpen, setInnOpen] = useState(false)
     const [storeOpen, setStoreOpen] = useState(false)
     const [leaveTown, setLeaveTown] = useState(false)
+    const [battleOpen, setBattleOpen] = useState(false)
 
     const textAreaPrompt = "You're standing in the middle of the town. The sun shines brightly on you as people go about their day around you."
 
@@ -62,7 +64,7 @@ function View(props) {
                     <Typography variant="h5" component="center" style={{ fontWeight: "bold" }}>
                         Player Stats
                     </Typography>
-                    
+
                     <Divider variant="middle" />
 
                     <Box display="inline-grid" gap={5} className={classes.grid}>
@@ -96,9 +98,17 @@ function View(props) {
                 <Box display="inline-grid" gap={5} alignContent="center" alignItems="center" justifyContent="center">
                     <TextareaAutosize id="mainTextArea" className={classes.textArea} defaultValue={textAreaPrompt} onKeyDown={e => e.preventDefault()} placeholder='' minRows={50} />
 
-                    {inTown ? <TownButtons setInnOpen={setInnOpen} setStoreOpen={setStoreOpen}  setTownOpen={handleCloseTown} setLeaveTown={setLeaveTown}/> : null}
-                    {innOpen ? <InnButtons player={props.player} setPlayer={props.setPlayer} returnToTown={handleCloseInn} open={innOpen} setTownOpen={setInTown} /> : null}
-                    {leaveTown ? <OutsideButtons player={props.player} setPlayer={props.setPlayer} returnToTown={() => setLeaveTown(false)} setTownOpen={setInTown} /> : null}
+                    {inTown ? <TownButtons setInnOpen={setInnOpen} setStoreOpen={setStoreOpen} setTownOpen={handleCloseTown} setLeaveTown={setLeaveTown} /> : null}
+                    {innOpen ? <InnButtons player={props.player} setPlayer={props.setPlayer} returnToTown={handleCloseInn} open={innOpen} setTownOpen={setInTown} sleep={props.sleep} setSleep={props.setSleep} /> : null}
+                    {leaveTown ? <OutsideButtons
+                        player={props.player}
+                        setPlayer={props.setPlayer}
+                        returnToTown={() => setLeaveTown(false)}
+                        setTownOpen={setInTown}
+                        setLeaveBattle={() => setBattleOpen(false)}
+                        setBattleOpen={setBattleOpen} sleep={props.sleep}
+                        setSleep={props.setSleep} /> : null}
+                    {battleOpen ? <BattleButtons player={props.player} setPlayer={props.setPlayer} returnToOutside={() => setLeaveTown(true)} leaveBattle={() => setBattleOpen(false)} /> : null}
 
                 </Box>
 

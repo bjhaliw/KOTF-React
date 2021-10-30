@@ -1,10 +1,8 @@
 class Monster {
-    constructor(name, typeMonster, health, attack, defense, experience, loot) {
-        this.name = name
+    constructor(typeMonster, health, attack, experience, loot) {
         this.typeMonster = typeMonster
         this.health = health
         this.attack = attack
-        this.defense = defense
         this.experience = experience
         this.loot = loot
     }

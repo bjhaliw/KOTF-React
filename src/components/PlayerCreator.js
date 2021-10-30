@@ -56,7 +56,7 @@ function PlayerCreator(props) {
                         id="strength"
                         name="strength"
                         type="number"
-                        inputProps={{ min: 0, style: { textAlign: 'center' } }}
+                        inputProps={{ min: 1, style: { textAlign: 'center' } }}
                         onChange={handleValueChange}
                         defaultValue={10}
                         onKeyDown={e => e.preventDefault()}
@@ -66,7 +66,7 @@ function PlayerCreator(props) {
                         id="dexterity"
                         name="dexterity"
                         type="number"
-                        inputProps={{ min: 0, style: { textAlign: 'center' } }}
+                        inputProps={{ min: 1, style: { textAlign: 'center' } }}
                         onChange={handleValueChange}
                         defaultValue={10}
                         onKeyDown={e => e.preventDefault()} label="Dexterity" />
@@ -75,7 +75,7 @@ function PlayerCreator(props) {
                         id="intelligence"
                         name="intelligence"
                         type="number"
-                        inputProps={{ min: 0, style: { textAlign: 'center' } }}
+                        inputProps={{ min: 1, style: { textAlign: 'center' } }}
                         onChange={handleValueChange}
                         defaultValue={10}
                         onKeyDown={e => e.preventDefault()} label="Intelligence" />
@@ -87,7 +87,7 @@ function PlayerCreator(props) {
                         id="charisma"
                         name="charisma"
                         type="number"
-                        inputProps={{ min: 0, style: { textAlign: 'center' } }}
+                        inputProps={{ min: 1, style: { textAlign: 'center' } }}
                         onChange={handleValueChange}
                         defaultValue={10}
                         onKeyDown={e => e.preventDefault()} label="Charisma" />
@@ -95,7 +95,7 @@ function PlayerCreator(props) {
                         id="constitution"
                         name="constitution"
                         type="number"
-                        inputProps={{ min: 0, style: { textAlign: 'center' } }}
+                        inputProps={{ min: 1, style: { textAlign: 'center' } }}
                         onChange={handleValueChange}
                         defaultValue={10}
                         onKeyDown={e => e.preventDefault()}
@@ -105,7 +105,7 @@ function PlayerCreator(props) {
                         id="wisdom"
                         name="wisdom"
                         type="number"
-                        inputProps={{ min: 0, style: { textAlign: 'center' } }}
+                        inputProps={{ min: 1, style: { textAlign: 'center' } }}
                         onChange={handleValueChange}
                         defaultValue={10}
                         onKeyDown={e => e.preventDefault()}

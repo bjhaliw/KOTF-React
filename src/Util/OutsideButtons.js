@@ -1,10 +1,12 @@
 import { Button } from '@material-ui/core';
 import { Box } from '@mui/system';
 import React, { useEffect } from 'react'
+import createMonster from '../Logic/RandomBattleCreation';
+import CreateBattle from "../Logic/RandomBattleCreation"
 
 function InnButtons(props) {
 
-    const { player, setPlayer, returnToTown, setTownOpen } = props
+    const { player, setPlayer, returnToTown, setTownOpen, setSleep, setBattleOpen } = props
 
     useEffect(() => {
         const welcomeText = `\n\nYou walk out into the wilderness in search of an adventure.`
@@ -21,17 +23,20 @@ function InnButtons(props) {
     }
 
     const handleRandomBattle = () => {
-
+        setBattleOpen(true)
+        returnToTown()
+        
     }
 
     const handleSetupCamp = () => {
-
+        setSleep(true)
     }
 
     const handleQuestBattle = () => {
+        
+
 
     }
-
 
     return (
         <>

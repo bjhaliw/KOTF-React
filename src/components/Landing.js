@@ -4,9 +4,27 @@ import PlayerInfo from './PlayerInfo';
 import View from './View'
 import PlayerCreator from './PlayerCreator';
 import { Divider } from '@material-ui/core';
+import { Box } from '@mui/system';
+import {makeStyles} from "@mui/styles"
 
+const useStyles = makeStyles({
+    // main: {
+    //     opacity: "1",
+    //     transition: " width 1s, height 1s, opacity 1s 1s",
+    //     width: "100%", /* make it fill available space */
+    //     height: "100%" /* make it fill available space*/
+    // },
+    // sleep: {
+    //     opacity: "0",
+    //     transition: " width 1s, height 1s, opacity 1s 1s",
+    //     width: "100%", /* make it fill available space */
+    //     height: "100%" /* make it fill available space*/
+    // }
+})
 
 function Landing() {
+
+    const classes = useStyles();
 
     const [player, setPlayer] = useState({
         name: "",
@@ -57,27 +75,31 @@ function Landing() {
         }
     }
 
+    const [sleep, setSleep] = useState(true)
+
     return (
-        <>
+        <div>
             <Header />
-            
+
             {charCreated ? (
-                <>
+                <div className={sleep ? classes.sleep : classes.main}>
                     <PlayerInfo player={player} />
                     <Divider />
-                    <View player={player} setPlayer={setPlayer} />
-                </>
+                    <View player={player} setPlayer={setPlayer} sleep={sleep} setSleep={setSleep} />
+                </div>
 
-            ) : <PlayerCreator
-                player={player}
-                setPlayer={setPlayer}
-                handleNameChange={handleNameChange}
-                handleValueChange={handleValueChange}
-                handleCharacterClassChange={handleCharacterClassChange}
-                createCharacter={createCharacter} />
+            ) :
+                    <PlayerCreator
+                        player={player}
+                        setPlayer={setPlayer}
+                        handleNameChange={handleNameChange}
+                        handleValueChange={handleValueChange}
+                        handleCharacterClassChange={handleCharacterClassChange}
+                        createCharacter={createCharacter} />
+               
             }
 
-        </>
+        </div>
     )
 }
 
@@ -87,17 +109,26 @@ function enhanceCharacterStats(player) {
         player.strength += 5
         player.constitution += 5
         player.mainHand = { name: "Short Sword", skill: "Attack", value: 6 }
-        player.offHand = { name: "Wooden Buckler", skill: "Defense", value: 5 }
+        player.offHand = { name: "Small Shield", skill: "Defense", value: 5 }
+
+        player.attack = player.strength + player.mainHand.value
+        player.defense = player.constitution + player.offHand.value
     } else if (player.characterClass === "Wizard") {
         player.intelligence += 5
         player.wisdom += 5
         player.mainHand = { name: "Staff", skill: "Attack", value: 6 }
         player.offHand = { name: "Magic Book", skill: "Defense", value: 5 }
+
+        player.attack = player.intelligence + player.mainHand.value
+        player.defense = player.constitution + player.offHand.value
     } else if (player.characterClass === "Rogue") {
         player.charisma += 5
         player.dexterity += 5
         player.mainHand = { name: "Bow", skill: "Attack", value: 6 }
-        player.offHand = { name: "Dagger", skill: "Attack", value: 2 }
+        player.offHand = { name: "Wooden Buckler", skill: "Defense", value: 2 }
+
+        player.attack = player.dexterity + player.mainHand.value
+        player.defense = player.constitution + player.offHand.value
     }
 
     player.money *= player.charisma
